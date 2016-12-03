@@ -1,16 +1,59 @@
-<div class="list">
-	<form>
-	  <div class="row">
-          <div class="small-12 columns">
-            <input ng-model="url" type="text" placeholder="URL">
-          </div>
-      </div>
 
-    <div class="text-center">
-      <button ng-click="setUrl()" class="button tiny info">Set URL</button>
-    </div>
+<div class="row">
 
-    {{displayText}}
+	<div class="small-2 columns">
+		<div id="filter">
+			<ul>
+				<li>Lists <input type="checkbox"> </li>
+				<li>Recipes <input type="checkbox"> </li>
+				<li>Gluten <input type="checkbox"> </li>
+				<li>Vegetarian <input type="checkbox"> </li>
+				<li>Vegan <input type="checkbox"> </li>
+			<ul>
+		</div>
+	</div>
 
-  </form>
+	<div class="small-2 columns">
+		<div id="feed">
+			<input id="searchBar"></input>
+			<div class="tile">
+				<div class="large recipe">
+
+					<div class="media">
+					</div>
+
+					<div class="ingredients">
+						<ul>
+							<li class="first">Sugar</li>
+							<li>Flour</li>
+							<li>Cocoa</li>
+							<li>Baking Powder</li>
+							<li>Baking Soda</li>
+							<li>Salt</li>
+							<li>Eggs</li>
+							<li>Milk</li>
+							<li>Vegetable Oil</li>
+							<li>Vanilla Extract</li>
+							<li>Butter</li>
+							<li>Powdered Sugar</li>
+							<li>Milk</li>
+						<ul>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="small-2 columns"<div id="cart">
+			<ul>
+				<li>Bread</li>
+				<li>Cheese</li>
+				<li>Steve</li>
+				<li>Sweet</li>
+			<ul>
+		</div>
+	</div>
+
 </div>

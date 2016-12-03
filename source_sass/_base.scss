@@ -1,1 +1,133 @@
-// Add any custom Sass & CSS here
+body {
+  padding-top: $header-height;
+  background-color: $offwhite;
+}
+
+header {
+
+  /* size */
+  height: $header-height;
+  width: 100%;
+
+  /* position */
+  margin-top: -$header-height;
+  position: fixed;
+
+  /* style */
+  background-color: $red;
+  color: $offwhite;
+  z-index: 127;
+
+}
+
+#filter {
+
+  /* size */
+  width: 100px;
+  height: 500px;
+  background-color: $white;
+
+  /* position */
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+
+  /* style */
+
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+#feed {
+  #searchBar {
+    width: 100%;
+  }
+}
+
+#cart {
+
+}
+
+.tile {
+
+  /* size */
+  width: 100%;
+
+  /* position */
+
+
+  /* style */
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  .small {
+    height: 100px;
+  }
+
+  .medium {
+    height: 200px;
+  }
+
+  .large {
+    height: 300px;
+  }
+
+  .recipe {
+    position: relative;
+
+    background-color: $pink;
+    border: 5px solid $lightorange;
+    border-radius: 10px;
+
+    .media {
+      /* size */
+      height: 100%;
+
+      /* position */
+
+      /* style */
+      background-color: black;
+    }
+
+    .ingredients {
+
+      /* size */
+      height: 100%;
+      width: 200px;
+
+      /* position */
+
+      /* style */
+      background-color: $white;
+      overflow: hidden;
+      overflow-y: scroll;
+
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        border-top: 1px solid $black;
+      }
+
+      .first {
+        border-top: 0px !important;
+      }
+    }
+  }
+
+  .list {
+
+  }
+
+  .item {
+
+  }
+
+}

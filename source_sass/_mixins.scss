@@ -1,1 +1,19 @@
-// Insert your mixins
+@mixin side_list_view() {
+  /* size */
+  width: 100px;
+  height: 500px;
+  background-color: $white;
+
+  /* position */
+  position: fixed;
+  bottom: 0px;
+
+  /* style */
+
+}
+
+@mixin side_list_view_ul() {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
