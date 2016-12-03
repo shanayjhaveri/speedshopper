@@ -1,11 +1,11 @@
-var mp4Controllers = angular.module('mp4Controllers', []);
+var ourControllers = angular.module('ourControllers', []);
 
 /* TASKS */
 
-mp4Controllers.controller('MainController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
+ourControllers.controller('MainController', [ function($scope, $http, $window, $location) {
 
 }]);
 
-mp4Controllers.controller('LandingController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
+ourControllers.controller('LandingController', [ function($scope, $http, $window, $location) {
 
 }]);

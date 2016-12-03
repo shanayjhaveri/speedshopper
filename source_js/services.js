@@ -1,6 +1,6 @@
-var mp4Services = angular.module('mp4Services', []);
+var ourServices = angular.module('ourServices', []);
 
-mp4Services.factory('CommonData', function(){
+ourServices.factory('CommonData', function(){
     var data = "";
     return{
         getData : function(){
@@ -12,7 +12,7 @@ mp4Services.factory('CommonData', function(){
     }
 });
 
-mp4Services.factory('Llamas', function($http, $window) {
+ourServices.factory('Llamas', function($http, $window) {
     return {
         get : function() {
             var baseUrl = $window.sessionStorage.baseurl;

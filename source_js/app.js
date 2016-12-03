@@ -1,14 +1,14 @@
-var app = angular.module('mp4', ['ngRoute', 'mp4Controllers', 'mp4Services']);
+var app = angular.module('speedshopper', ['ngRoute', 'ourControllers', 'ourServices']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
   when('/main', {
     templateUrl: 'partials/main.html',
-    controller: 'SettingsController'
+    controller: 'MainController'
   }).
   when('/landing', {
     templateUrl: 'partials/landing.html',
-    controller: 'SettingsController'
+    controller: 'LandingController'
   }).
   otherwise({
     redirectTo: '/main'
