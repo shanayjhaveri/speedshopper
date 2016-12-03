@@ -10,7 +10,15 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/landing.html',
     controller: 'LandingController'
   }).
+  when('/logon', {
+    templateUrl: 'partials/logon.html',
+    controller: 'LogOnController'
+  }).
+  when('/register', {
+    templateUrl: 'partials/register.html',
+    controller: 'RegisterController'
+  }).
   otherwise({
-    redirectTo: '/main'
+    redirectTo: '/landing'
   });
 }]);
