@@ -6,6 +6,10 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/main.html',
     controller: 'SettingsController'
   }).
+  when('/landing', {
+    templateUrl: 'partials/landing.html',
+    controller: 'SettingsController'
+  }).
   otherwise({
     redirectTo: '/main'
   });
