@@ -8,4 +8,4 @@ var UserSchema   = new mongoose.Schema({
 });
 
 // Export the Mongoose model
-module.exports = mongoose.model('Task', TaskSchema);
+module.exports = mongoose.model('User', UserSchema);

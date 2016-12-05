@@ -2,11 +2,11 @@
 //Calls to walmart API
 
 
+var secrets = require('./config/secrets');
 var express = require('express');
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 //var Llama = require('./models/llama');
-var User = require('./models/user');
-var Task = require('./models/task');
+//var Task = require('./models/task');
 var bodyParser = require('body-parser');
 var router = express.Router();
 
@@ -17,8 +17,9 @@ var app = express();
 // Use environment defined port or 3000
 var port = process.env.PORT || 3000;
 
-//mongo connection
-mongoose.connect("mongodb://speed:shoppers@ds119588.mlab.com:19588/speedshopperusers");
+console.log('Server running on port ' + port);
+
+
 
 //Allow CORS so that backend and frontend could be put on different servers
 var allowCrossDomain = function(req, res, next) {
@@ -28,6 +29,7 @@ var allowCrossDomain = function(req, res, next) {
   next();
 }
 app.use(allowCrossDomain);
+
 
 
 // Use the body-parser package in our application
@@ -42,6 +44,6 @@ app.use(bodyParser.json());
 require('./routes')(app, router);
 
 
+
 // Start the server
 app.listen(port);
-console.log('Server running on port ' + port);

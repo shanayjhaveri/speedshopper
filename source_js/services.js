@@ -99,53 +99,27 @@ speedshopperServices.factory('Walmart', function(){
 });
 
 speedshopperServices.factory('User', function(){
-    var mlab = "";
 
     return{
 
-        //called when search bar is used. create a dictionary after calling this to store key-value pairs in the form itemName-itemID
-        searchItem : function(searchTerm){
-            var requestURI = "http://api.walmartlabs.com/v1/search?+apiKey="+apiKey+"&numItems=5&query="+searchTerm;
+        //give user object to add to database
+        addUser : function(user){
+            //var requestURI = "http://api.walmartlabs.com/v1/search?+apiKey="+apiKey+"&numItems=5&query="+searchTerm;
 
-            return $http.get(requestURI);
+            return $http.post(requestURI);
 
         },
            
 
-        //call when a specific product is selected, use productID from search request
-        productDetails: function(productID){
-            var requestURI = "http://api.walmartlabs.com/v1/items/"+productID+"?apiKey="+apiKey+"&format=json";
+        //get user information when log in request
+        getUser: function(){
+            //var requestURI = "http://api.walmartlabs.com/v1/items/"+productID+"?apiKey="+apiKey+"&format=json";
 
             return $http.get(requestURI);
         }
 
 
-        //taxonomy: when user selects find categories, this will display all the available categories
-        getCategories: function(){
-            var requestURI = "http://api.walmartlabs.com/v1/taxonomy?apiKey="+apiKey;
 
-            return $http.get(requestURI);
-        }
-
-        //gets paginated products from the selected category. use data.nextPage to go to the next part of the list
-        filterByCategory: function(categoryID){
-            var requestURI = "http://api.walmartlabs.com/v1/paginated/items?category="+categoryID+"&apiKey="+apiKey;
-
-            return $http.get(requestURI);
-        }
-
-        //from post browsed products API, returns similar products to current one
-        recommendedProducts: function(itemID){
-            var requestURI = "http://api.walmartlabs.com/v1/postbrowse?apiKey="+apiKey+"&itemId="+itemID;
-
-            return $http.get(requestURI);
-        }
-
-        //when users arrive at the feed, show trending items(or their lists)
-        trendingProducts: function(itemID){
-            var requestURI = "http://api.walmartlabs.com/v1/trends?apiKey="+apiKey;
-
-            return $http.get(requestURI);
         }
 
 
