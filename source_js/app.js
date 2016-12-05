@@ -18,6 +18,10 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/register.html',
     controller: 'RegisterController'
   }).
+  when('/map', {
+    templateUrl: 'partials/map.html',
+    controller: 'MapController'
+  }).
   otherwise({
     redirectTo: '/landing'
   });
