@@ -1,15 +1,14 @@
 var secrets = require('../config/secrets');
-var Llama = require('../models/llama');
+var User = require('../models/user');
 
 module.exports = function(router) {
 
-  var llamaRoute = router.route('/llamas');
+  var userRoute = router.route('/users');
   
-  llamaRoute.get(function(req, res) {
+  userRoute.get(function(req, res) {
     res.json([{ "name": "alice", "height": 12 }, { "name": "jane", "height": 13 }]);
   });
 
   return router;
 }
-
 
