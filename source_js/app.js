@@ -14,10 +14,6 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/logon.html',
     controller: 'LogOnController'
   }).
-  when('/register', {
-    templateUrl: 'partials/register.html',
-    controller: 'RegisterController'
-  }).
   when('/map', {
     templateUrl: 'partials/map.html',
     controller: 'MapController'

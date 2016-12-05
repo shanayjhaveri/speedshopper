@@ -1,3 +1,50 @@
-<div class="row" ng-controller='LogOnController'>
-logon
+<div class="row logon" ng-controller='LogOnController'>
+    <div class="medium-6 column">
+        <h2>
+            LOGIN
+        </h2>
+        <form>
+
+            <div class="medium-10 row columns">
+                <label >Email</label>
+                <input id="emailnew" placeholder="and your email" ng-model="email"  name="em" type="email" required>
+
+            </div>
+            <div class="medium-10 row columns">
+                <label>Password</label>
+                <input type="text" placeholder="Please enter your password" ng-model="password" required>
+
+            </div>
+            <button class = "button" id='subOld' ng-click="post()">Add</button>
+
+        </form>
+        <div>{{message}}</div>
+
+    </div>
+    <div class="medium-6 column new_user">
+        <h2>
+            NEW USER
+        </h2>
+        <form>
+            <div class="medium-10 row columns">
+                <label>Name</label>
+                <input type="text" placeholder="Please enter your name" ng-model="name" required>
+
+            </div>
+            <div class="medium-10 row  columns">
+                <label >Email</label>
+                <input id="em" placeholder="and your email" ng-model="email"  name="em" type="email" required>
+
+            </div>
+            <div class="medium-10 row columns">
+                <label>Password</label>
+                <input type="text" placeholder="Please enter your password" ng-model="password" required>
+
+            </div>
+            <div>{{message}}</div>
+            <button class = "button" id='subNew' ng-click="post()">Add</button>
+        </form>
+
+    </div>
+
 </div>

@@ -152,7 +152,22 @@ $size-mid:60px;
   }
 
 }
-
+.logon{
+  padding:100px;
+  .medium-6{
+    padding: 30px;
+  }
+  .new_user{
+    border-left:  solid $offblack;
+    padding-left:50px;
+  }
+  .button{
+    background-color: $red;
+    box-shadow: 0 0 7px 0 rgba(0, 0, 0, .13);
+    border-radius: 200px;
+    float:right;
+  }
+}
 body {
   padding-top: $header-height;
   background-color: $offwhite;
@@ -172,6 +187,19 @@ header {
   background-color: $red;
   color: $offwhite;
   z-index: 127;
+
+  a{
+    color:white;
+  }
+  a:active {
+    color:white;
+  }
+  a:hover {
+    color:$lightorange;
+  }
+  a:link {
+    color:white;
+  }
 
 }
 

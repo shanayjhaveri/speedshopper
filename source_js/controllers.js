@@ -5,12 +5,15 @@ var ourControllers = angular.module('ourControllers', []);
 ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
     $("#scroll").on('click',function(){
         event.preventDefault();
-        console.log("hehe");
         $('html, body').animate({
             scrollTop: $( '#intro' ).offset().top
         }, 500);
-        //
-
+    });
+    $("#scroll_").on('click',function(){
+        event.preventDefault();
+        $('html, body').animate({
+            scrollTop: $( '#intro' ).offset().top
+        }, 500);
     });
 }]);
 
