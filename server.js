@@ -4,9 +4,7 @@
 
 var secrets = require('./config/secrets');
 var express = require('express');
-//var mongoose = require('mongoose');
-//var Llama = require('./models/llama');
-//var Task = require('./models/task');
+
 var bodyParser = require('body-parser');
 var router = express.Router();
 

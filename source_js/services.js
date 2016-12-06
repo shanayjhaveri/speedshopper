@@ -98,6 +98,8 @@ speedshopperServices.factory('Walmart', function(){
     }
 });
 
+
+//MAKE BASEURL THE LINK TO OUR API
 speedshopperServices.factory('User', function(){
 
     return{
@@ -106,22 +108,28 @@ speedshopperServices.factory('User', function(){
         addUser : function(user){
             //var requestURI = "http://api.walmartlabs.com/v1/search?+apiKey="+apiKey+"&numItems=5&query="+searchTerm;
 
-            return $http.post(requestURI);
+            var baseUrl = $window.sessionStorage.baseurl;
+            return $http.post(baseUrl+'/users',user);
 
         },
-           
 
         //get user information when log in request
-        getUser: function(){
+        getUser: function(username,password){
             //var requestURI = "http://api.walmartlabs.com/v1/items/"+productID+"?apiKey="+apiKey+"&format=json";
 
-            return $http.get(requestURI);
+            var baseUrl = $window.sessionStorage.baseurl;
+            
+            return $http.get(baseUrl+'/users',username,password);
         }
 
 
+        //when user saves list and/or items we update their information in our database 
+        saveItems: function(user){
+            //var requestURI = "http://api.walmartlabs.com/v1/items/"+productID+"?apiKey="+apiKey+"&format=json";
 
+            var baseUrl = $window.sessionStorage.baseurl;
+            return $http.put(baseUrl+'/users',username);
         }
-
 
     }
 });
