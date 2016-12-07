@@ -26,7 +26,7 @@ ourServices.factory('Walmart', function($http, $window){
         searchItem : function(searchTerm){
             var requestURI = "http://api.walmartlabs.com/v1/search?query=" + searchTerm + "&format=json&apiKey=" + apiKey;
             console.log(requestURI);
-            // return;
+           // return;
 
             return $.ajax({
                 url: requestURI,
@@ -99,22 +99,22 @@ ourServices.factory('Walmart', function($http, $window){
 
         //when users arrive at the feed, show trending items(or their lists)
         trendingProducts: function(){
-            var requestURI = "http://api.walmartlabs.com/v1/trends?format=json&apiKey="+apiKey+"&callback=foobar";
-            foobar = function(data){
-                alert(data.items)
-            };
-            console.log(requestURI);
+              var requestURI = "http://api.walmartlabs.com/v1/trends?format=json&apiKey="+apiKey+"&callback=foobar";
+              foobar = function(data){
+                  alert(data.items)
+              };
+              console.log(requestURI);
 
-            return $.ajax({
-                url: requestURI,
-                type: 'GET',
-                crossDomain: true,
-                dataType: 'jsonp',
-                jsonpCallback: 'foobar',
-                success: function(data) { return data },
-                error: function(data) { return data }
-            });
-        }
+              return $.ajax({
+                  url: requestURI,
+                  type: 'GET',
+                  crossDomain: true,
+                  dataType: 'jsonp',
+                  jsonpCallback: 'foobar',
+                  success: function(data) { return data },
+                  error: function(data) { return data }
+              });
+          }
 
 
     }
@@ -123,17 +123,15 @@ ourServices.factory('Walmart', function($http, $window){
 
 //MAKE BASEURL THE LINK TO OUR API
 ourServices.factory('User', function($http, $window){
-    $window.sessionStorage.baseurl = "http://localhost:8000/api";
+
     return{
 
         //give user object to add to database
         addUser : function(user){
 
-            console.log("reached add user");
             var baseUrl = $window.sessionStorage.baseurl;
+            return $http.post(baseUrl+'/users', user);
 
-
-            return $http.post(baseUrl+'/users?username='+user.username+'&password='+user.password+'&email='+user.email);
         },
 
         //get user information when log in request
@@ -141,7 +139,7 @@ ourServices.factory('User', function($http, $window){
 
             var baseUrl = $window.sessionStorage.baseurl;
 
-            return $http.get(baseUrl+'/users?username='+user.username+'&password='+user.password);
+            return $http.get(baseUrl+'/users', user);
         },
 
 
