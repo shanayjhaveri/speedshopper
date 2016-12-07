@@ -16,7 +16,7 @@ module.exports = function(router) {
   // });
 
   userRoute.get(function(req, res) {
-	  User.findOne({"username": req.params.username, "password":req.params.password}, function(err,user)
+	  User.findOne({"username": req.body.user.username, "password":req.body.user.password}, function(err,user)
 	  	{
 	  		if(err)
 	  		{
@@ -36,10 +36,10 @@ module.exports = function(router) {
   userRoute.post(function(req,res){
   	var newUser = new User();
 
-  	newUser.username = req.body.username;
-  	newUser.email = req.body.email;
-  	newUser.password = req.body.password;
-  	newUser.items = [];
+  	newUser.username = req.body.user.username;
+  	newUser.email = req.body.user.email;
+  	newUser.password = req.body.user.password;
+  	newUser.lists = [];
     //add a dateCreated?
   	newUser.save(function(err)
   	{
@@ -56,7 +56,7 @@ module.exports = function(router) {
 
 
     userRoute.put(function(req,res){
-  	User.findOne({"username": req.params.username}, function(err,user)
+  	User.findOne({"username": req.body.username}, function(err,user)
   	{
   		if (err)
   		{
@@ -65,7 +65,10 @@ module.exports = function(router) {
   		if(req.body.items)
   		{
 
-  			user.items = req.body.items;
+		  	var newList = new List();
+		  	newList.itemIDs = req.body.user.itemIDs;
+		  	newList.listName = req.body.user.listName;
+		  	user.lists.push(newList);
   			user.save(function(err,user){
   				if (err)
   				{
@@ -79,7 +82,6 @@ module.exports = function(router) {
   		}
   		else
   		{
-  			user.items = [];
   			user.save(function(err,user){
   				if (err)
   				{
@@ -93,9 +95,6 @@ module.exports = function(router) {
   		}
   	});
   });
-
-
-
 
 
 
