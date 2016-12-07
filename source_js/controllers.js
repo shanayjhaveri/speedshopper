@@ -23,6 +23,9 @@ ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$
 
 ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$window', '$location', function(Walmart, $scope, $http, $window, $location) {
     $scope.loggedin = false;
+
+    console.log($scope.ui_data);
+    $scope.$apply();
     $scope.user;
     if($window.sessionStorage.login==1){
         $scope.loggedin = true;
@@ -32,9 +35,9 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
     if($scope.text === '' || $scope.text === undefined) return;
     document.getElementById("searchwalmart").className = "button request disabled";
     Walmart.searchItem($scope.text).success( function(data) {
-      $scope.ui_data = data;
+      $scope.ui_data = data.items;
       for(var t in $scope.ui_data.items) {
-        if($scope.ui_data.items[t].name.length > 16) $scope.ui_data.items[t].name = $scope.ui_data.items[t].name.substring(0,18);
+        //if($scope.ui_data.items[t].name.length > 16) $scope.ui_data.items[t].name = $scope.ui_data.items[t].name.substring(0,18);
       }
       $scope.$apply();
       document.getElementById("searchwalmart").className = "button request";
@@ -61,7 +64,7 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
     }
     if(unique) {
       thing.quantity = 1;
-      if(thing.name.length > 16) thing.name = thing.name.substring(0,32) + '...';
+      if(thing.name.length > 16) thing.name = thing.name.substring(0,24) + '...';
       $scope.cart.push(thing);
     }
     $scope.update_total();
@@ -98,6 +101,12 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
   else $scope.total = 0;
 
   $scope.update_total();
+
+  $scope.delay = function() {
+    setTimeout(function(){ console.log('did it');$scope.ui_data = loaded_data; $scope.$apply();}, 1000);
+
+  }
+  $scope.delay();
 
 
 }]);
@@ -264,31 +273,56 @@ ourControllers.controller('MapController', ['User', '$scope', '$http', '$window'
         temp_map[a][b] = ascii_map[a][b];
       }
     }
+    //return;
+
+    console.log("num of dots " + num_dots);
+    var doodle= [];
 
     var dfs = function() {
+      //console.log(0);
       var stop = q.pop();
-      console.log(stop);
+      //console.log(stop);
       var char = temp_map2[stop[1]][stop[0]];
-      console.log(char);
+      //console.log(char);
 
 
       if(char === '.') {
+        temp_map2[stop[1]][stop[0]] = 'r';
+        console.log(stop);
+        doodle[0] = stop[0];
+        doodle[1] = stop[1];
         return 1;
-      } else if(char === 'E' || char === '#') {
+      } else if(char === 'E' || char === '#' || char === 'r') {
         return 0;
       } else if(char === ' ' || char === 'S') {
-        console.log('here');
-        temp_map2[stop[1]][stop[0]] = '.';
+        //console.log('here');
+        temp_map2[stop[1]][stop[0]] = 'r';
         q.push([stop[0], stop[1] + 1]);
-        if(dfs()) return 1;
+        if(dfs()) {
+          start[0] = stop[0];
+          start[1] = stop[1];
+          return 1;
+        }
         q.push([stop[0], stop[1] - 1]);
-        if(dfs()) return 1;
+        if(dfs()) {
+          start[0] = stop[0];
+          start[1] = stop[1];
+          return 1;
+        }
         q.push([stop[0] + 1, stop[1]]);
-        if(dfs()) return 1;
+        if(dfs()) {
+          start[0] = stop[0];
+          start[1] = stop[1];
+          return 1;
+        }
         q.push([stop[0] - 1, stop[1]]);
-        if(dfs()) return 1;
+        if(dfs()) {
+          start[0] = stop[0];
+          start[1] = stop[1];
+          return 1;
+        }
         temp_map2[stop[1]][stop[0]] = 'x';
-        return;
+        return 0;
       }
 
     }
@@ -302,19 +336,36 @@ ourControllers.controller('MapController', ['User', '$scope', '$http', '$window'
       for(var a in ascii_map) {
         temp_map2[a] = [];
         for(var b in ascii_map[a]) {
-          temp_map2[a][b] = ascii_map[a][b];
+          temp_map2[a][b] = temp_map[a][b];
         }
       }
 
       q.push(start);
       var path = [];
+      temp_map[start[1]][start[0]] = ' ';
       dfs();
+      console.log(doodle);
+      temp_map[doodle[1]][doodle[0]] = 'S';
+      start[0] = doodle[0];
+      start[1] = doodle[1];
 
       num_dots--;
 
+      for(var a in temp_map2) {
+        for(var b in temp_map2[a]) {
+          if(temp_map2[a][b] === 'r') ascii_map[a][b] = '.';
+        }
+      }
+
     }
 
-    console.log("DONE");
+    //console.log("DONE");
+
+    var canvas = document.getElementById("map");
+    canvas.height = canvas.width /2;
+    var brush;
+
+    init_canvas();
 
 
 
