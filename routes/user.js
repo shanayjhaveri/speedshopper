@@ -52,13 +52,14 @@ module.exports = function(router) {
   	newUser.username = req.query.username;
   	newUser.email = req.query.email;
   	newUser.password = req.query.password;
-  	newUser.lists = [];
+  	//newUser.lists = new models.List();
+    //console.log(newUser.lists);
     //add a dateCreated?
   	newUser.save(function(err)
   	{
   		if (err)
   		{
-
+        console.log(err);
   			res.status(500).send({message:"Failed to create new user",data:err});
   		}
   		else
@@ -76,7 +77,8 @@ module.exports = function(router) {
   	{
       //console.log(req.body.list);
       //console.log(req.body.user.data.username);
-
+      console.log(req.body.user.data.username);
+      console.log("reached in put");
   		if (err)
   		{
   			res.status(500).send({message:"Failed to complete request",data:err});
@@ -92,27 +94,52 @@ module.exports = function(router) {
         newList.imgs = req.body.list.imgs;
         newList.itemNames = req.body.list.itemNames
         newList.quantities = req.body.list.quantities
+        if(req.body.list.listName)
         newList.listName = req.body.list.listName;
-        console.log(req.body.user.data);
-		  	req.body.user.data.lists.push(newList);
-  			user.save(function(err,user){
-  				if (err)
-  				{
-  					res.status(500).send({message:"Failed to save list",data:err});
-  				}
-  				else
-  				{
-            console.log("");
-  					res.status(200).json({message:"Saved list",data:user});
-  				}
-  			});
+      else newList.listName = " ";
+
+
+      console.log(newList.listName);
+        //user.lists = [1,2,3];
+  //       user.lists = { itemIDs: [ 11964626, 35506194, 17619377, 42391738 ],
+  // listName: '',
+  // _id: '5848175432e14d4f847a8ce5' };
+        //console.log(req.body.list);
+                //console.log(user.lists);
+
+      newList.save(function(err)
+      {
+        if (err)
+        {
+            console.log(err);
+            console.log("reached ellse cnjdvgh900");
+
+          res.status(500).send({message:"Failed to create new list",data:err});
+        }
+        else
+        {
+              res.status(201).json({message:"Created new list"});
+            user.lists.push(newList._id);
+            user.save(function(err,user){
+              if (err)
+              {
+                res.status(500).send({message:"Failed to save list1",data:err});
+              }
+              else
+              {
+                  res.status(200).send({message:"user has been updated"});
+              }
+            });
+        }
+      });
   		}
   		else
   		{
   			user.save(function(err,user){
   				if (err)
   				{
-  					res.status(500).send({message:"Failed to save list",data:err});
+            console.log("reached ellse cnjd");
+  					res.status(500).send({message:"Failed to save list2",data:err});
   				}
   				else
   				{

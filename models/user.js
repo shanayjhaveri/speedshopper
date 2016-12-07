@@ -4,7 +4,11 @@ var mongoose = require('mongoose');
 
 var ListSchema = new mongoose.Schema({
     listName: {type: String, required:true},
-    itemIDs: [Number]
+    itemIDs: [Number],
+    prices: [Number],
+    imgs: [String],
+    itemNames: [String],
+    quantities: [String]
 });
 
 
@@ -12,7 +16,7 @@ var UserSchema   = new mongoose.Schema({
     username: { type:String, required:true },
     email: { type:String, required:true },
     password: { type:String, required:true },
-    lists: [ListSchema]
+    lists: [String]
 });
 
 var List = mongoose.model('List', ListSchema);
