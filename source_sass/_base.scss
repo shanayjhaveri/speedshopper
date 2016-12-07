@@ -534,6 +534,23 @@ footer {
   background-color: white;
 }
 
+.top-bar-left {
+  p {
+    line-height: $header-height;
+    padding-left: 10px;
+    font-size: 24px;
+  }
+}
+
+.top-bar-right {
+  p {
+    padding-top: 34px;
+    line-height: $header-height!important;
+    padding-right: 10px;
+    font-size: 12px;
+  }
+}
+
 .mappage {
   .button{
     padding:0;
