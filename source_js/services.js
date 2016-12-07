@@ -12,6 +12,8 @@ product recommendation api - used to get related items to current item
 trending api-shows trending items
 */
 
+
+
 var speedshopperServices = angular.module('speedshopperServices', []);
 
 ourServices.factory('Walmart', function($http, $window){
