@@ -124,6 +124,11 @@ $size-mid:60px;
     height:500px;
     padding: 55px;
     position:relative;
+    /*img{
+      top: 50%;
+      transform: translateY(-50%);
+    }*/
+
     @include breakpoint(medium down){
       height: 400px;
       padding:17px;
@@ -154,6 +159,12 @@ $size-mid:60px;
     background-color: $pink;
   }
   .c2{
+    background-color: $lightorange;
+  }
+  .c5{
+    background-color: $lightorange;
+  }
+  .c6{
     background-color: $lightorange;
   }
 
@@ -242,7 +253,7 @@ footer {
 
   /* position */
   bottom: 0;
-  position:absolute;
+  position:fixed;
 
 
   /* style */
