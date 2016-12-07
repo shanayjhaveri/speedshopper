@@ -3,6 +3,8 @@ var ourControllers = angular.module('ourControllers', []);
 /* TASKS */
 
 ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
+    $scope.name = 'Whirled';
+
     $("#scroll").on('click',function(){
         event.preventDefault();
         $('html, body').animate({
@@ -15,9 +17,11 @@ ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$
             scrollTop: $( '#intro' ).offset().top
         }, 500);
     });
+
 }]);
 
 ourControllers.controller('MainController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
+
 
 }]);
 
