@@ -40,8 +40,7 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
   };
 
   $scope.feed = function() {
-    Walmart.trendingProducts($scope.text).success( function(data) {
-
+    Walmart.trendingProducts().success( function(data) {
       console.log(data);
     });
   };
@@ -54,7 +53,6 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
       if($scope.cart[t].itemId === thing.itemId) {
         $scope.cart[t].quantity++;
         unique = false;
-        console.log("wwoooo");
         break;
       }
     }
@@ -63,6 +61,7 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
       $scope.cart.push(thing);
     }
     $scope.update_total();
+    $window.sessionStorage.cart = JSON.stringify($scope.cart);
 
     return;
   };
@@ -85,14 +84,17 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
 
   $scope.go_to_map = function() {
     if($scope.cart.length === 0 ) return;
-    else $location.path("map");
+    console.log($scope.cart);
+    $location.path("map");
   };
 
-  $scope.feed();
+  //$scope.feed();
+
+  if($window.sessionStorage.cart !== '') $scope.cart = JSON.parse($window.sessionStorage.cart);
+  else $scope.total = 0;
 
   $scope.update_total();
 
-  $scope.total = 0;
 
 }]);
 
@@ -149,19 +151,26 @@ ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$lo
 
 ourControllers.controller('MapController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
 
-    $scope.loggedin = false;
-    $scope.user;
-    if($window.sessionStorage.login==1){
-        $scope.loggedin = true;
-        $scope.user=$window.sessionStorage.username;
-    }
-    if($window.sessionStorage.login==1){
-        $scope.show = false;
-    }
+  $scope.loggedin = false;
+  $scope.user;
+  if($window.sessionStorage.login==1){
+      $scope.loggedin = true;
+      $scope.user=$window.sessionStorage.username;
+  }
+  if($window.sessionStorage.login==1){
+      $scope.show = false;
+  }
+
+  $scope.init = function() {
+    $scope.cart = JSON.parse($window.sessionStorage.cart);
+    console.log($scope.cart);
+  };
+
   $scope.draw = function() {
     init_canvas();
   };
 
+  $scope.init();
   $scope.draw();
 
 }]);

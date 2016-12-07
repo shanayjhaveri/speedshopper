@@ -1,16 +1,16 @@
 var ourServices = angular.module('ourServices', []);
 
 /*
-Product lookup
-http://api.walmartlabs.com/v1/items/12417832?apiKey={apiKey}&lsPublisherId={Your LinkShare Publisher Id}&format=json
-Search lookup
-http://api.walmartlabs.com/v1/search?apiKey={apiKey}&lsPublisherId={Your LinkShare Publisher Id}&query=ipod
-paginated products(filters and such/catalog)
-taxonomy - returns categories might be required. NEEDED FOR FILTER BY CATEGORY
-post browsed products api- used to suggest items based on user's product viewing history
-product recommendation api - used to get related items to current item
-trending api-shows trending items
-*/
+ Product lookup
+ http://api.walmartlabs.com/v1/items/12417832?apiKey={apiKey}&lsPublisherId={Your LinkShare Publisher Id}&format=json
+ Search lookup
+ http://api.walmartlabs.com/v1/search?apiKey={apiKey}&lsPublisherId={Your LinkShare Publisher Id}&query=ipod
+ paginated products(filters and such/catalog)
+ taxonomy - returns categories might be required. NEEDED FOR FILTER BY CATEGORY
+ post browsed products api- used to suggest items based on user's product viewing history
+ product recommendation api - used to get related items to current item
+ trending api-shows trending items
+ */
 
 
 
@@ -26,7 +26,7 @@ ourServices.factory('Walmart', function($http, $window){
         searchItem : function(searchTerm){
             var requestURI = "http://api.walmartlabs.com/v1/search?query=" + searchTerm + "&format=json&apiKey=" + apiKey;
             console.log(requestURI);
-           // return;
+            // return;
 
             return $.ajax({
                 url: requestURI,
@@ -99,7 +99,10 @@ ourServices.factory('Walmart', function($http, $window){
 
         //when users arrive at the feed, show trending items(or their lists)
         trendingProducts: function(){
-            var requestURI = "http://api.walmartlabs.com/v1/trends?format=json&apiKey="+apiKey;
+            var requestURI = "http://api.walmartlabs.com/v1/trends?format=json&apiKey="+apiKey+"&callback=foobar";
+            foobar = function(data){
+                alert(data.items)
+            };
             console.log(requestURI);
 
             return $.ajax({
@@ -120,15 +123,17 @@ ourServices.factory('Walmart', function($http, $window){
 
 //MAKE BASEURL THE LINK TO OUR API
 ourServices.factory('User', function($http, $window){
-
+    $window.sessionStorage.baseurl = "http://localhost:8000/api";
     return{
 
         //give user object to add to database
         addUser : function(user){
 
+            console.log("reached add user");
             var baseUrl = $window.sessionStorage.baseurl;
-            return $http.post(baseUrl+'/users', user);
 
+
+            return $http.post(baseUrl+'/users?username='+user.username+'&password='+user.password+'&email='+user.email);
         },
 
         //get user information when log in request
@@ -136,7 +141,7 @@ ourServices.factory('User', function($http, $window){
 
             var baseUrl = $window.sessionStorage.baseurl;
 
-            return $http.get(baseUrl+'/users', user);
+            return $http.get(baseUrl+'/users?username='+user.username+'&password='+user.password);
         },
 
 
