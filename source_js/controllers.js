@@ -102,7 +102,7 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
 
 }]);
 
-ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
+ourControllers.controller('LogOnController', ['$scope','User', '$http', '$window', '$location', function($scope,User, $http, $window, $location) {
 
     $scope.returnPassword="";
     $scope.returnName="";
@@ -110,20 +110,26 @@ ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$lo
     $scope.newEmail="";
     $scope.newName="";
     $scope.createNew = function(){
-        window.location = "#/main";
-        console.log($scope.newEmail);
-        return;
+
         if($scope.newEmail==""|| $scope.newEmail==undefined||$scope.newName==""|| $scope.newName==undefined||
             $scope.newPassword==""|| $scope.newPassword==undefined) {
             console.log("empty");
             return;
         }
         var new_user={};
-        new_user.name = $scope.newName;
+        new_user.username = $scope.newName;
         new_user.email=$scope.newEmail;
-        new_user.password=$scope.newPassword;
+        new_user.password = $scope.newPassword.hashCode();
+
+        console.log(new_user);
         User.addUser(new_user).success( function(data) {
             console.log(data);
+            $window.sessionStorage.fulluser = JSON.stringify(data);
+            $window.sessionStorage.newName=$scope.newName;
+            $window.sessionStorage.login=1;
+            window.location = "#/main";
+
+
         }).error( function(data) {
             console.log("search request failed");
         });
@@ -137,16 +143,17 @@ ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$lo
             console.log("empty");
             return;
         }
-        $window.sessionStorage.username=$scope.returnName;
-        $window.sessionStorage.login=1;
-        $window.location = "#/main";
-        return;
+
         var return_user={};
         return_user.email = $scope.returnName;
-        return_user.password = $scope.returnPassword;
+        return_user.password = $scope.returnPassword.hashCode();
+        console.log(return_user.password);
         User.getUser(return_user).success( function(data) {
           $window.sessionStorage.fulluser = JSON.stringify(data);
+            $window.sessionStorage.username=$scope.returnName;
+            $window.sessionStorage.login=1;
             console.log(data);
+            window.location = "#/main";
         }).error( function(data) {
             console.log("search request failed");
         });
@@ -211,19 +218,18 @@ ourControllers.controller('MapController', ['User', '$scope', '$http', '$window'
 
     for(var t in $scope.cart) {
       the_cart.listName.push($scope.cart[t].name);
-      the_cart.itemIds.push($scope.cart[t].itemId);
+      the_cart.itemIDs.push($scope.cart[t].itemId);
       the_cart.prices.push($scope.cart[t].salePrice);
       the_cart.imgs.push($scope.cart[t].thumbnailImage);
       the_cart.quantities.push($scope.cart[t].quantity);
     }
 
-    var pass = {user: the_user, list: the_list};
+    var pass = {user: the_user, list: the_cart};
 
     User.saveItems(pass).success( function(data) {
       console.log(data);
     });
 
-    the_user.lists.push(the_list);
     console.log(the_user);
     $window.sessionStorage.fulluser = JSON.stringify(the_user);
 
