@@ -19,14 +19,29 @@ ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$
 
 ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$window', '$location', function(Walmart, $scope, $http, $window, $location) {
 
-  $scope.search = function(str) {
-    console.log('searc');
+  $scope.search = function() {
     Walmart.searchItem($scope.text).success( function(data) {
+      $scope.ui_data = data;
       console.log(data);
     }).error( function(data) {
       console.log("search request failed");
+      // TODO handle error
     });
-  }
+  };
+
+  $scope.feed = function() {
+    $scope.feed_data = null;
+    $scope.update($scope.feed_data);
+    return;
+  };
+
+  $scope.update = function(data) {
+
+    $scope.ui_data = data;
+
+  };
+
+  $scope.feed();
 
 }]);
 
