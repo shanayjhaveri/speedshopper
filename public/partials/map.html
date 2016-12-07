@@ -27,7 +27,7 @@
     <div id="final" class="mappage">
 			<h2 style="color: #99B898; text-align: center;">${{total}}</h2>
 			<ul>
-				<li ng-repeat="thing in cart">{{thing.name}} x {{thing.quantity}}<a><i class='fa fa-times-circle' aria-hidden='true' ng-click="remove_from_cart($index)"></i></li></a></li>
+				<li ng-repeat="thing in cart">{{thing.name}} x {{thing.quantity}} <a><i class='fa fa-times-circle' aria-hidden='true' ng-click="remove_from_cart($index)"></i></li></a></li>
 			</ul>
 			<br>
 			<button class="button save" ng-click="back()"><i class="fa fa-reply" aria-hidden="true"></i></button>

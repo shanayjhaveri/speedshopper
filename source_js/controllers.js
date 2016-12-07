@@ -229,4 +229,98 @@ ourControllers.controller('MapController', ['User', '$scope', '$http', '$window'
 
   };
 
+  $scope.draw_path = function() {
+    // init dots on map
+    ascii_map[13][6] = 'S';
+    for(var t in $scope.cart) {
+      var temp = $scope.cart[t].categoryPath.split('/');
+      for(var x in categories) {
+        if(temp[0] === categories[x]) {
+          var xpos = position[places[x]][0];
+          var ypos = position[places[x]][1];
+          ascii_map[ypos][xpos] = '.';
+          break;
+        }
+      }
+      ascii_map[13][15] = 'E';
+    }
+
+    var starty = 13;
+    var startx = 6;
+    var q = [];
+
+    var start = [startx, starty];
+    //have remaining dots array and once no more remaining dots, go to checkout from last dot
+    //maybe keep a path array to track locations of current path and then reset after reaching a destination
+
+    var num_dots = 0;
+
+    var temp_map = [];
+
+    for(var a in ascii_map) {
+      temp_map[a] = [];
+      for(var b in ascii_map[a]) {
+        if(ascii_map[a][b] === '.') num_dots++;
+        temp_map[a][b] = ascii_map[a][b];
+      }
+    }
+
+    var dfs = function() {
+      var stop = q.pop();
+      console.log(stop);
+      var char = temp_map2[stop[1]][stop[0]];
+      console.log(char);
+
+
+      if(char === '.') {
+        return 1;
+      } else if(char === 'E' || char === '#') {
+        return 0;
+      } else if(char === ' ' || char === 'S') {
+        console.log('here');
+        temp_map2[stop[1]][stop[0]] = '.';
+        q.push([stop[0], stop[1] + 1]);
+        if(dfs()) return 1;
+        q.push([stop[0], stop[1] - 1]);
+        if(dfs()) return 1;
+        q.push([stop[0] + 1, stop[1]]);
+        if(dfs()) return 1;
+        q.push([stop[0] - 1, stop[1]]);
+        if(dfs()) return 1;
+        temp_map2[stop[1]][stop[0]] = 'x';
+        return;
+      }
+
+    }
+
+    //console.log(num_dots);
+
+    while(num_dots > 0) {
+
+      var temp_map2 = [];
+
+      for(var a in ascii_map) {
+        temp_map2[a] = [];
+        for(var b in ascii_map[a]) {
+          temp_map2[a][b] = ascii_map[a][b];
+        }
+      }
+
+      q.push(start);
+      var path = [];
+      dfs();
+
+      num_dots--;
+
+    }
+
+    console.log("DONE");
+
+
+
+
+  };
+
+  $scope.draw_path();
+
 }]);

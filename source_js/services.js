@@ -126,7 +126,7 @@ ourServices.factory('User', function($http, $window){
         //give user object to add to database
         addUser : function(user){
 
-            var baseUrl = $window.sessionStorage.baseurl;
+            var baseUrl = "http://fa16-cs498rk-082.cs.illinois.edu:8000/api";
             return $http.post(baseUrl+'/users', user);
 
         },
@@ -134,7 +134,7 @@ ourServices.factory('User', function($http, $window){
         //get user information when log in request
         getUser: function(user){
 
-            var baseUrl = $window.sessionStorage.baseurl;
+            var baseUrl = "http://fa16-cs498rk-082.cs.illinois.edu:8000/api";
 
             return $http.get(baseUrl+'/users', user);
         },
@@ -143,7 +143,7 @@ ourServices.factory('User', function($http, $window){
         //when user saves (shopping) list we update their information in our database
         saveItems: function(user){
 
-            var baseUrl = $window.sessionStorage.baseurl;
+            var baseUrl = "http://fa16-cs498rk-082.cs.illinois.edu:8000/api";
 
             return $http.put(baseUrl+'/users', user);
         }
