@@ -485,12 +485,12 @@ footer {
   /* style */
   text-align: right;
   background-color: $white;
-
   ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
   }
+  li {      padding-right: 10px; }
 
   .checkout {
     color: white;
@@ -507,19 +507,28 @@ footer {
 #map {
   width: 100%;
   background-color: $offwhite;
+}
 
-  .button{
-    padding:0;
-    padding-top: 5px;
+#final {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
   }
+  li {      padding-right: 10px;
+  text-align: right;}
+}
+
+#finalcart {
+  background-color: white;
 }
 
 .mappage {
   .button{
     padding:0;
-    padding-top: 5px;
+    padding-top: 0px;
   }
-  
+
   .save {
     color: white;
     margin-bottom: 10px;

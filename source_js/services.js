@@ -99,22 +99,19 @@ ourServices.factory('Walmart', function($http, $window){
 
         //when users arrive at the feed, show trending items(or their lists)
         trendingProducts: function(){
-              var requestURI = "http://api.walmartlabs.com/v1/trends?format=json&apiKey="+apiKey+"&callback=foobar";
-              foobar = function(data){
-                  alert(data.items)
-              };
-              console.log(requestURI);
-
-              return $.ajax({
-                  url: requestURI,
-                  type: 'GET',
-                  crossDomain: true,
-                  dataType: 'jsonp',
-                  jsonpCallback: 'foobar',
-                  success: function(data) { return data },
-                  error: function(data) { return data }
-              });
-          }
+                    $http.jsonp('http://api.walmartlabs.com/v1/trends?apiKey=ztckw7sqnfaajaxdah556a5d&callback=JSON_CALLBACK&format=jsonp').
+                    success(function(data, status, headers, config) {
+                        alert("got data");
+                        return data;
+                        // this callback will be called asynchronously
+                        // when the response is available
+                    }).
+                    error(function(data, status, headers, config) {
+                        alert("failed to get data")
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+          });
+        }
 
 
     }
@@ -144,7 +141,7 @@ ourServices.factory('User', function($http, $window){
 
 
         //when user saves (shopping) list we update their information in our database
-        saveItems: function(user, list){
+        saveItems: function(user){
 
             var baseUrl = $window.sessionStorage.baseurl;
 

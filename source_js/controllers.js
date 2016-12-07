@@ -33,6 +33,9 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
     document.getElementById("searchwalmart").className = "button request disabled";
     Walmart.searchItem($scope.text).success( function(data) {
       $scope.ui_data = data;
+      for(var t in $scope.ui_data.items) {
+        if($scope.ui_data.items[t].name.length > 16) $scope.ui_data.items[t].name = $scope.ui_data.items[t].name.substring(0,18);
+      }
       $scope.$apply();
       document.getElementById("searchwalmart").className = "button request";
       console.log(data);
@@ -58,6 +61,7 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
     }
     if(unique) {
       thing.quantity = 1;
+      if(thing.name.length > 16) thing.name = thing.name.substring(0,32) + '...';
       $scope.cart.push(thing);
     }
     $scope.update_total();
@@ -69,6 +73,7 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
   $scope.remove_from_cart = function(idx) {
     if($scope.cart[idx].quantity === 1) $scope.cart.splice(idx, 1);
     else $scope.cart[idx].quantity--;
+    $window.sessionStorage.cart = JSON.stringify($scope.cart);
     $scope.update_total();
   }
 
@@ -84,7 +89,6 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
 
   $scope.go_to_map = function() {
     if($scope.cart.length === 0 ) return;
-    console.log($scope.cart);
     $location.path("map");
   };
 
@@ -141,6 +145,7 @@ ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$lo
         return_user.email = $scope.returnName;
         return_user.password = $scope.returnPassword;
         User.getUser(return_user).success( function(data) {
+          $window.sessionStorage.fulluser = JSON.stringify(data);
             console.log(data);
         }).error( function(data) {
             console.log("search request failed");
@@ -149,7 +154,7 @@ ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$lo
     };
 }]);
 
-ourControllers.controller('MapController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
+ourControllers.controller('MapController', ['User', '$scope', '$http', '$window', '$location', function(User, $scope, $http, $window, $location) {
 
   $scope.loggedin = false;
   $scope.user;
@@ -161,9 +166,29 @@ ourControllers.controller('MapController', ['$scope', '$http', '$window', '$loca
       $scope.show = false;
   }
 
+  $scope.update_total = function() {
+    $scope.total = 0;
+    for(var t in $scope.cart) $scope.total += $scope.cart[t].salePrice * $scope.cart[t].quantity;
+    $scope.total *= 100;
+    $scope.total = Math.round($scope.total);
+    $scope.total /= 100;
+    if($scope.cart.length === 0) document.getElementById('savelist').className = "button save disabled";
+    else document.getElementById('savelist').className = "button save";
+  };
+
   $scope.init = function() {
     $scope.cart = JSON.parse($window.sessionStorage.cart);
-    console.log($scope.cart);
+  };
+
+  $scope.remove_from_cart = function(idx) {
+    if($scope.cart[idx].quantity === 1) $scope.cart.splice(idx, 1);
+    else $scope.cart[idx].quantity--;
+    $window.sessionStorage.cart = JSON.stringify($scope.cart);
+    $scope.update_total();
+  };
+
+  $scope.back = function() {
+    $location.path("main");
   };
 
   $scope.draw = function() {
@@ -171,6 +196,37 @@ ourControllers.controller('MapController', ['$scope', '$http', '$window', '$loca
   };
 
   $scope.init();
+  $scope.update_total();
   $scope.draw();
+
+  $scope.save_list = function() {
+    var the_user = JSON.parse($window.sessionStorage.fulluser);
+    var the_cart = {};
+    the_cart.listName = [];
+    the_cart.itemIDs = [];
+    the_cart.prices = [];
+    the_cart.imgs = [];
+    the_cart.itemNames = [];
+    the_cart.quantities = [];
+
+    for(var t in $scope.cart) {
+      the_cart.listName.push($scope.cart[t].name);
+      the_cart.itemIds.push($scope.cart[t].itemId);
+      the_cart.prices.push($scope.cart[t].salePrice);
+      the_cart.imgs.push($scope.cart[t].thumbnailImage);
+      the_cart.quantities.push($scope.cart[t].quantity);
+    }
+
+    var pass = {user: the_user, list: the_list};
+
+    User.saveItems(pass).success( function(data) {
+      console.log(data);
+    });
+
+    the_user.lists.push(the_list);
+    console.log(the_user);
+    $window.sessionStorage.fulluser = JSON.stringify(the_user);
+
+  };
 
 }]);
