@@ -20,7 +20,16 @@ ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$
 
 }]);
 
-ourControllers.controller('MainController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
+ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$window', '$location', function(Walmart, $scope, $http, $window, $location) {
+
+  $scope.search = function(str) {
+    console.log('searc');
+    Walmart.searchItem($scope.text).success( function(data) {
+      console.log(data);
+    }).error( function(data) {
+      console.log("search request failed");
+    });
+  }
 
 
 }]);
@@ -43,21 +52,7 @@ ourControllers.controller('MapController', ['$scope', '$http', '$window', '$loca
 
 
   $scope.draw = function() {
-    var canvas = document.getElementById("map");
-    canvas.height = canvas.width /2;
-
-    var top = 20;
-    var left = 20;
-    var height = 35;
-    var width = 400;
-
-    for(var aisle = 0 ; aisle < 14 ; aisle++) {
-      var rect = canvas.getContext("2d");
-      rect.rect(left, top, width, height);
-      rect.stroke();
-      top += height + 20;
-    }
-
+    init_canvas();
   };
 
   $scope.draw();

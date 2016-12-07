@@ -201,6 +201,7 @@ $size-mid:60px;
 body {
   padding-top: $header-height;
   background-color: $offwhite;
+  font-family: 'Roboto', sans-serif;
 }
 
 header {
@@ -299,18 +300,32 @@ footer {
 
   #search {
     margin-top: 4px;
+    float: left;
     margin-bottom: 4px;
+    margin-right: 0px;
     border: 0px;
     padding: 4px;
     padding-left: 8px;
     padding-right: 8px;
     font-size: 18px;
     border-radius: 2px;
-    width: 100%;
+    width: calc(100% - 120px);
+    height: 40px;
   }
 
   #search:focus {
     outline: none;
+  }
+
+  .request {
+    margin-top: 4px;
+    float: left;
+    line-height: 40px;
+    border-radius: 2px;
+    margin-left: 5px;
+    width: 110px;
+    height: 40px;
+    background-color: $red;
   }
 
   #scroll {
@@ -467,5 +482,5 @@ footer {
 
 #map {
   width: 100%;
-  background-color: purple;
+  background-color: $offwhite;
 }
