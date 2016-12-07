@@ -15,7 +15,15 @@ var UserSchema   = new mongoose.Schema({
     lists: [ListSchema]
 });
 
+var List = mongoose.model('List', ListSchema);
+var User = mongoose.model('User', UserSchema);
+
+
+module.exports = {
+    List: List,
+    User: User,
+};
 
 // Export the Mongoose model
-module.exports = mongoose.model('List', ListSchema);
-module.exports = mongoose.model('User', UserSchema);
+// module.exports = mongoose.model('List', ListSchema);
+// module.exports = mongoose.model('User', UserSchema);

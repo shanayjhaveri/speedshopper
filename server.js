@@ -13,7 +13,7 @@ var router = express.Router();
 var app = express();
 
 // Use environment defined port or 3000
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8000;
 
 console.log('Server running on port ' + port);
 
@@ -34,19 +34,6 @@ app.use(allowCrossDomain);
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
-
-// String.prototype.hashCode = function(){
-//     var hash = 0;
-//     if (this.length == 0) return hash;
-//     for (i = 0; i < this.length; i++) {
-//         char = this.charCodeAt(i);
-//         hash = ((hash<<5)-hash)+char;
-//         hash = hash & hash; // Convert to 32bit integer
-//     }
-//     return hash;
-// }
-
 
 
 

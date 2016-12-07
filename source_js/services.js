@@ -97,7 +97,7 @@ ourServices.factory('Walmart', function($http, $window){
 
         //when users arrive at the feed, show trending items(or their lists)
         trendingProducts: function(itemID){
-            var requestURI = "http://api.walmartlabs.com/v1/trends?apiKey="+apiKey;
+            var requestURI = "http://api.walmartlabs.com/v1/trends?format=json&apiKey="+apiKey;
 
             return $.ajax({
                 url: requestURI,
@@ -116,14 +116,15 @@ ourServices.factory('Walmart', function($http, $window){
 
 //MAKE BASEURL THE LINK TO OUR API
 ourServices.factory('User', function($http, $window){
-
+    var baseUrl = 'http://localhost:8000/api';
     return{
 
         //give user object to add to database
         addUser : function(user){
 
             var baseUrl = $window.sessionStorage.baseurl;
-            return $http.post(baseUrl+'/users', user);
+            
+            return $http.post(baseUrl+'/users?username='+user.username+'&password='+user.password+'&email='+user.email);
 
         },
 
@@ -132,16 +133,16 @@ ourServices.factory('User', function($http, $window){
 
             var baseUrl = $window.sessionStorage.baseurl;
 
-            return $http.get(baseUrl+'/users', user);
+            return $http.get(baseUrl+'/users?username='+user.username+'&password='+user.password);
         },
 
 
         //when user saves (shopping) list we update their information in our database
-        saveItems: function(user, list){
+        saveItems: function(user){
 
             var baseUrl = $window.sessionStorage.baseurl;
 
-            return $http.put(baseUrl+'/users', user);
+            return $http.put(baseUrl+'/users' user);
         }
 
     }
