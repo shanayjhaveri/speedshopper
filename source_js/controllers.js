@@ -5,16 +5,11 @@ var ourControllers = angular.module('ourControllers', []);
 /* TASKS */
 
 ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
-    $scope.value = $window.sessionStorage.login=6;
-    console.log($window.sessionStorage.login);
     $("#scroll").on('click',function(){
-        session = true;
         event.preventDefault();
         $('html, body').animate({
             scrollTop: $( '#intro' ).offset().top
         }, 500);
-        $window.sessionStorage.login = 0;
-        console.log($window.sessionStorage.login);
     });
     $("#scroll_").on('click',function(){
         event.preventDefault();
@@ -26,15 +21,42 @@ ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$
 }]);
 
 ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$window', '$location', function(Walmart, $scope, $http, $window, $location) {
-    console.log($window.sessionStorage.login);
-  $scope.search = function(str) {
-      console.log('searc');
-      Walmart.searchItem($scope.text).success(function (data) {
-          console.log(data);
-      }).error(function (data) {
-          console.log("search request failed");
-      });
+
+  $scope.search = function() {
+    Walmart.searchItem($scope.text).success( function(data) {
+      $scope.ui_data = data;
+      console.log(data);
+    }).error( function(data) {
+      console.log("search request failed");
+      // TODO handle error
+    });
+  };
+
+  $scope.feed = function() {
+    $scope.feed_data = null;
+    $scope.update($scope.feed_data);
+    return;
+  };
+
+  $scope.update = function(data) {
+
+    $scope.ui_data = data;
+
+  };
+
+  $scope.cart = [];
+
+  $scope.add_to_cart = function(thing) {
+    $scope.total += thing.salePrice;
+    $scope.cart.push(thing);
+    document.getElementById("cartlist").innerHTML += "<li>" + thing.name + "</li>";
+    return;
   }
+
+  $scope.feed();
+
+  $scope.total = 0;
+
 }]);
 
 ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {

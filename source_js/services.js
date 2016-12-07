@@ -15,7 +15,6 @@ trending api-shows trending items
 
 
 
-
 var speedshopperServices = angular.module('speedshopperServices', []);
 
 ourServices.factory('Walmart', function($http, $window){
@@ -29,7 +28,14 @@ ourServices.factory('Walmart', function($http, $window){
             console.log(requestURI);
            // return;
 
-            return $http.get(requestURI);
+            return $.ajax({
+                url: requestURI,
+                type: 'GET',
+                crossDomain: true,
+                dataType: 'jsonp',
+                success: function(data) { return data },
+                error: function(data) { return data },
+            });
 
         },
 
