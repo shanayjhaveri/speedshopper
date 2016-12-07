@@ -26,7 +26,14 @@ ourServices.factory('Walmart', function($http, $window){
         searchItem : function(searchTerm){
             var requestURI = "http://api.walmartlabs.com/v1/search?query=" + searchTerm + "&format=json&apiKey=" + apiKey;
 
-            return $http.get(requestURI);
+            return $.ajax({
+                url: requestURI,
+                type: 'GET',
+                crossDomain: true,
+                dataType: 'jsonp',
+                success: function(data) { return data },
+                error: function(data) { return data },
+            });
 
         },
 
