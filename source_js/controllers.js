@@ -41,7 +41,18 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
 
   };
 
+  $scope.cart = [];
+
+  $scope.add_to_cart = function(thing) {
+    $scope.total += thing.salePrice;
+    $scope.cart.push(thing);
+    document.getElementById("cartlist").innerHTML += "<li>" + thing.name + "</li>";
+    return;
+  }
+
   $scope.feed();
+
+  $scope.total = 0;
 
 }]);
 

@@ -19,7 +19,7 @@
 
 		<input id="search" ng-model="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="64"></input>
 		<button class="request disabled" ng-click="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
-		<br><br>
+		<br><br><br>
 
 		<div id="scroll">
 
@@ -50,35 +50,11 @@
 					<div class="name">
 						{{thing.name}}
 					</div>
-					<div class="add"><i class="fa fa-plus" aria-hidden="true"></i></div>
-					<div class="more"><i class="fa fa-bars" aria-hidden="true"></i></div>
+					<button class="add" ng-click="add_to_cart(thing)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+					<button class="more"><i class="fa fa-bars" aria-hidden="true"></i></button>
 					<div class="price">${{thing.salePrice}}</div>
 				</div>
 			</div>
-			<div class="item">
-				<div class="name">
-					Bread
-				</div>
-				<div class="add"><i class="fa fa-plus" aria-hidden="true"></i></div>
-				<div class="more"><i class="fa fa-bars" aria-hidden="true"></i></div>
-				<div class="price">$4</div>
-			</div>
-			<div class="item">
-				<div class="name">
-					Bread
-				</div>
-				<div class="add"><i class="fa fa-plus" aria-hidden="true"></i></div>
-				<div class="more"><i class="fa fa-bars" aria-hidden="true"></i></div>
-				<div class="price">$4</div>
-			</div>
-			<div class="item">
-				<div class="name">
-					Bread
-				</div>
-				<div class="add"><i class="fa fa-plus" aria-hidden="true"></i></div>
-				<div class="more"><i class="fa fa-bars" aria-hidden="true"></i></div>
-				<div class="price">$4</div>
-			</div>
 
 			<div class="item">
 				<div class="name">
@@ -89,44 +65,14 @@
 				<div class="price">$4</div>
 			</div>
 
-			<div class="item">
-				<div class="name">
-					Bread
-				</div>
-				<div class="add"><i class="fa fa-plus" aria-hidden="true"></i></div>
-				<div class="more"><i class="fa fa-bars" aria-hidden="true"></i></div>
-				<div class="price">$4</div>
-			</div>
-
-			<div class="item">
-				<div class="name">
-					Bread
-				</div>
-				<div class="add"><i class="fa fa-plus" aria-hidden="true"></i></div>
-				<div class="more"><i class="fa fa-bars" aria-hidden="true"></i></div>
-				<div class="price">$4</div>
-			</div>
-
-			<div class="item">
-				<div class="name">
-					Bread
-				</div>
-				<div class="add"><i class="fa fa-plus" aria-hidden="true"></i></div>
-				<div class="more"><i class="fa fa-bars" aria-hidden="true"></i></div>
-				<div class="price">$4</div>
-			</div>
 
 		</div>
 
 	</div>
 
 	<div id="cart" class="small-12 medium-3 columns">
-		<h4>Cart</h4>
-		<ul>
-			<li>Bread</li>
-			<li>Cheese</li>
-			<li>Steve</li>
-			<li>Sweet</li>
+		<h4 style="color: #99B898">${{total}}</h4>
+		<ul id="cartlist">
 		</ul>
 	</div>
 
