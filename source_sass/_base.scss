@@ -345,6 +345,13 @@ footer {
     background-color: white;
     position: relative;
 
+    img {
+      position: absolute;
+      bottom: 10px;
+      height: 55px;
+      left: 100px;
+    }
+
     .name{
       border-top-right-radius: 10px;
       border-top-left-radius: 10px;
@@ -355,6 +362,7 @@ footer {
       width: 100%;
       background-color: $offblack;
       color: white;
+      overflow: hidden;
     }
 
     .items {
@@ -413,6 +421,13 @@ footer {
     background-color: white;
     position: relative;
 
+    img {
+      position: absolute;
+      bottom: 10px;
+      height: 55px;
+      left: 100px;
+    }
+
     .name{
       border-top-right-radius: 10px;
       border-top-left-radius: 10px;
@@ -422,6 +437,7 @@ footer {
       height: 50px;
       width: 100%;
       background-color: $offblack;
+      overflow: hidden;
       color: white;
     }
     .add{

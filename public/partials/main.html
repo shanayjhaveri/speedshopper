@@ -18,7 +18,7 @@
 	</header>
 
 <div class="row">
-	<div id="filter" class="small-12 medium-3 columns">
+	<div id="filter" class="small-12 large-3 columns">
 		<h4>Filters</h4>
 		<ul>
 			<li><input type="checkbox"> Lists</li>
@@ -34,43 +34,21 @@
 
 	</div>
 
-	<div id="feed" class="small-12 medium-6 columns">
+	<div id="feed" class="small-12 medium-9 columns">
 
-		<input id="search" ng-model="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="64"></input>
-		<button id="searchwalmart" class="button request" ng-click="search()" ng-enter="search()"><i class="fa fa-search" aria-hidden="true" style="font-size: 30px;"></i></button>
+		<input id="search" ng-model="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="64" ng-enter="search()"></input>
+		<button id="searchwalmart" class="button request" ng-click="search()"><i class="fa fa-search" aria-hidden="true" style="font-size: 30px;"></i></button>
 		<br><br>
 
 
 		<div id="scroll">
 
-			<!--<div class="list">
-				<div class="name">
-					{{thing.name}}
-				</div>
-
-				<div class="items">
-					<ul>
-
-						<li>Milk</li>
-						<li>Eggs</li>
-						<li>Butter</li>
-						<li>Sugar</li>
-						<li>Cocoa</li>
-						<li>Flour</li>
-						<li>Icing</li>
-						<li>Forks</li>
-					</ul>
-				</div>
-				<div class="add"><i class="fa fa-plus" aria-hidden="true"></i></div>
-				<div class="more"><i class="fa fa-bars" aria-hidden="true"></i></div>
-				<div class="price">$20</div>
-			</div>-->
-
 			<div class="item" ng-repeat="thing in ui_data.items">
-				<div style="height: 100%;width: 100%; background-image: url('{{thing.largeImage}}');">
+				<div style="height: 100%;width: 100%;');">
 					<div class="name">
 						{{thing.name}}
 					</div>
+					<img src="{{thing.thumbnailImage}}">
 					<button class="button add" ng-click="add_to_cart(thing)"><i class="fa fa-plus" aria-hidden="true"></i></button>
 					<button class="button more"><i class="fa fa-bars" aria-hidden="true"></i></button>
 					<div class="price">${{thing.salePrice}}</div>
