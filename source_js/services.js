@@ -26,6 +26,8 @@ ourServices.factory('Walmart', function($http, $window){
         //called when search bar is used. create a dictionary after calling this to store key-value pairs in the form itemName-itemID
         searchItem : function(searchTerm){
             var requestURI = "http://api.walmartlabs.com/v1/search?query=" + searchTerm + "&format=json&apiKey=" + apiKey;
+            console.log(requestURI);
+           // return;
 
             return $http.get(requestURI);
 
