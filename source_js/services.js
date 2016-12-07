@@ -105,6 +105,7 @@ ourServices.factory('Walmart', function($http, $window){
                 type: 'GET',
                 crossDomain: true,
                 dataType: 'jsonp',
+                jsonpCallback: 'foobar',
                 success: function(data) { return data },
                 error: function(data) { return data }
             });

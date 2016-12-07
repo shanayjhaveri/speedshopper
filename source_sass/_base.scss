@@ -316,14 +316,14 @@ footer {
   }
 
   .request {
+    color: white;
     margin-top: 4px;
     float: left;
     line-height: 40px;
     border-radius: 2px;
-    margin-left: 5px;
+    margin-left: 10px;
     width: 110px;
     height: 40px;
-    background-color: $redred;
   }
 
   #scroll {
@@ -376,7 +376,6 @@ footer {
       width: 50px;
       height: 50px;
       border-radius: 50px;
-      background-color: $redred;
       float: right;
     }
     .more{
@@ -387,15 +386,15 @@ footer {
       width: 50px;
       height: 50px;
       border-radius: 50px;
-      background-color: $redred;
       float: right;
     }
     .price {
       color: $green;
       position: absolute;
-      bottom: 0px;
+      bottom: 25px;
+      font-weight: bold;
       right: 15px;
-      font-size: 50px;
+      font-size: 18px;
     }
   }
 
@@ -428,7 +427,6 @@ footer {
       width: 50px;
       height: 50px;
       border-radius: 50px;
-      background-color: $redred;
       float: right;
     }
     .more{
@@ -439,15 +437,15 @@ footer {
       width: 50px;
       height: 50px;
       border-radius: 50px;
-      background-color: $redred;
       float: right;
     }
     .price {
       color: $green;
       position: absolute;
-      bottom: 0px;
+      bottom: 25px;
+      font-weight: bold;
       left: 15px;
-      font-size: 50px;
+      font-size: 18px;
     }
   }
 }
@@ -469,8 +467,15 @@ footer {
     padding: 0;
   }
 
-  li {
-    
+  .checkout {
+    color: white;
+    margin-bottom: 10px;
+    float: left;
+    line-height: 40px;
+    border-radius: 2px;
+    margin-left: 5px;
+    width: 100%;
+    height: 40px;
   }
 }
 

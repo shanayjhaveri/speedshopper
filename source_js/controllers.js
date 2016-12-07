@@ -20,36 +20,68 @@ ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$
 ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$window', '$location', function(Walmart, $scope, $http, $window, $location) {
 
   $scope.search = function() {
+    if($scope.text === '' || $scope.text === undefined) return;
+    document.getElementById("searchwalmart").className = "button request disabled";
     Walmart.searchItem($scope.text).success( function(data) {
       $scope.ui_data = data;
       $scope.$apply();
+      document.getElementById("searchwalmart").className = "button request";
       console.log(data);
     });
   };
 
   $scope.feed = function() {
-    /*
-    Walmart.trendingProducts().success( function(data) {
-      $scope.feed_data = data;
-      $scope.ui_data = data;
+    Walmart.trendingProducts($scope.text).success( function(data) {
+
       console.log(data);
-    }).error( function(httpReq,status,exception) {
-      console.log(status + ' ' + exception);
-      // TODO handle error
     });
-    */
   };
 
   $scope.cart = [];
 
   $scope.add_to_cart = function(thing) {
-    $scope.total += thing.salePrice;
-    $scope.cart.push(thing);
-    document.getElementById("cartlist").innerHTML += "<li>" + thing.name + "</li>";
+    var unique = true;;
+    for(var t in $scope.cart) {
+      if($scope.cart[t].itemId === thing.itemId) {
+        $scope.cart[t].quantity++;
+        unique = false;
+        console.log("wwoooo");
+        break;
+      }
+    }
+    if(unique) {
+      thing.quantity = 1;
+      $scope.cart.push(thing);
+    }
+    $scope.update_total();
+
     return;
+  };
+
+  $scope.remove_from_cart = function(idx) {
+    if($scope.cart[idx].quantity === 1) $scope.cart.splice(idx, 1);
+    else $scope.cart[idx].quantity--;
+    $scope.update_total();
   }
 
+  $scope.update_total = function() {
+    $scope.total = 0;
+    for(var t in $scope.cart) $scope.total += $scope.cart[t].salePrice * $scope.cart[t].quantity;
+    $scope.total *= 100;
+    $scope.total = Math.round($scope.total);
+    $scope.total /= 100;
+    if($scope.cart.length === 0) document.getElementById('mapbutton').className = "button checkout disabled";
+    else document.getElementById('mapbutton').className = "button checkout";
+  };
+
+  $scope.go_to_map = function() {
+    if($scope.cart.length === 0 ) return;
+    else $location.path("map");
+  };
+
   $scope.feed();
+
+  $scope.update_total();
 
   $scope.total = 0;
 

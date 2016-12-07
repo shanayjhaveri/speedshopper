@@ -114,7 +114,6 @@ var init_canvas = function() {
   brush.fillRect(2200, 1200, 300 - 10, 200);
 
 /*
-
   var top = 20;
   var left = 20;
   var height = 35;
@@ -126,7 +125,11 @@ var init_canvas = function() {
     rect.stroke();
     top += height + 20;
   }
-
 */
 
 };
+
+var foobar = function() {
+  alert("asdfdsa");
+
+}
