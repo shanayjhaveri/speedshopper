@@ -24,10 +24,12 @@
 
   <div class="small-12 large-3 columns">
 
-    <div id="final">
+    <div id="final" class="mappage">
 			<ul>
 				<li ng-repeat="thing in cart">{{thing.name}} x {{thing.quantity}}<a><i class='fa fa-times-circle' aria-hidden='true' ng-click="remove_from_cart($index)"></i></li></a></li>
 			</ul>
+			<button id="savelist" class="button save" ng-click="save_list()">save</button>
+
     </div>
 
   </div>

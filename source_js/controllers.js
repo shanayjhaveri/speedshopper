@@ -91,10 +91,10 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
   //$scope.feed();
 
   if($window.sessionStorage.cart !== '') $scope.cart = JSON.parse($window.sessionStorage.cart);
+  else $scope.total = 0;
 
   $scope.update_total();
 
-  $scope.total = 0;
 
 }]);
 
