@@ -22,23 +22,22 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
   $scope.search = function() {
     Walmart.searchItem($scope.text).success( function(data) {
       $scope.ui_data = data;
+      $scope.$apply();
       console.log(data);
-    }).error( function(data) {
-      console.log("search request failed");
-      // TODO handle error
     });
   };
 
   $scope.feed = function() {
-    $scope.feed_data = null;
-    $scope.update($scope.feed_data);
-    return;
-  };
-
-  $scope.update = function(data) {
-
-    $scope.ui_data = data;
-
+    /*
+    Walmart.trendingProducts().success( function(data) {
+      $scope.feed_data = data;
+      $scope.ui_data = data;
+      console.log(data);
+    }).error( function(httpReq,status,exception) {
+      console.log(status + ' ' + exception);
+      // TODO handle error
+    });
+    */
   };
 
   $scope.cart = [];
