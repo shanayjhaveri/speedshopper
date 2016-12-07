@@ -1,5 +1,5 @@
 <div class="row logon" ng-controller='LogOnController'>
-    <div class="medium-6 column">
+    <div class="large-6 column">
         <h2>
             LOGIN
         </h2>
@@ -7,42 +7,43 @@
 
             <div class="medium-10 row columns">
                 <label >Email</label>
-                <input id="emailnew" placeholder="and your email" ng-model="email"  name="em" type="email" required>
+                <input id="email" placeholder="and your email" ng-model="returnEmail"  name="em" type="email" required>
 
             </div>
             <div class="medium-10 row columns">
                 <label>Password</label>
-                <input type="text" placeholder="Please enter your password" ng-model="password" required>
+                <input id="pswd" type="password" placeholder="Please enter your password" ng-model="returnPassword" type="password" required>
 
             </div>
-            <button class = "button" id='subOld' ng-click="post()">Add</button>
+            <button class = "button" id='subOld' ng-click="logon()">Log on</button>
 
         </form>
         <div>{{message}}</div>
 
     </div>
-    <div class="medium-6 column new_user">
+    <div class="large-6 column new_user">
         <h2>
             NEW USER
         </h2>
         <form>
             <div class="medium-10 row columns">
                 <label>Name</label>
-                <input type="text" placeholder="Please enter your name" ng-model="name" required>
+                <input type="text" placeholder="Please enter your name" ng-model="newName" required>
 
             </div>
+
             <div class="medium-10 row  columns">
                 <label >Email</label>
-                <input id="em" placeholder="and your email" ng-model="email"  name="em" type="email" required>
+                <input placeholder="and your email" ng-model="newEmail"  name="em" type="email" required>
 
             </div>
             <div class="medium-10 row columns">
                 <label>Password</label>
-                <input type="text" placeholder="Please enter your password" ng-model="password" required>
+                <input type="password" placeholder="Please enter your password" ng-model="newPassword" required>
 
             </div>
             <div>{{message}}</div>
-            <button class = "button" id='subNew' ng-click="post()">Add</button>
+            <button class = "button" id='subNew' ng-click="createNew()">Register</button>
         </form>
 
     </div>

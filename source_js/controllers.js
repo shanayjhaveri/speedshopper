@@ -31,11 +31,17 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
 }]);
 
 ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
-
-}]);
-
-ourControllers.controller('RegisterController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
-
+    $scope.returnPassword="";
+    $scope.returnEmail="";
+    $scope.newPassword="";
+    $scope.newEmail="";
+    $scope.newName="";
+    $scope.logon = function(){
+        console.log($scope.returnEmail,$scope.returnPassword);
+    };
+    $scope.createNew = function(){
+        console.log($scope.newName,$scope.newEmail, $scope.newPassword);
+    };
 }]);
 
 ourControllers.controller('MapController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
