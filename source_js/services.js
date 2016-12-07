@@ -99,19 +99,22 @@ ourServices.factory('Walmart', function($http, $window){
 
         //when users arrive at the feed, show trending items(or their lists)
         trendingProducts: function(){
-            var requestURI = "http://api.walmartlabs.com/v1/trends?format=json&apiKey="+apiKey;
-            console.log(requestURI);
+              var requestURI = "http://api.walmartlabs.com/v1/trends?format=json&apiKey="+apiKey+"&callback=foobar";
+              foobar = function(data){
+                  alert(data.items)
+              };
+              console.log(requestURI);
 
-            return $.ajax({
-                url: requestURI,
-                type: 'GET',
-                crossDomain: true,
-                dataType: 'jsonp',
-                jsonpCallback: 'foobar',
-                success: function(data) { return data },
-                error: function(data) { return data }
-            });
-        }
+              return $.ajax({
+                  url: requestURI,
+                  type: 'GET',
+                  crossDomain: true,
+                  dataType: 'jsonp',
+                  jsonpCallback: 'foobar',
+                  success: function(data) { return data },
+                  error: function(data) { return data }
+              });
+          }
 
 
     }
