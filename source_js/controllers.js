@@ -245,6 +245,7 @@ ourControllers.controller('MapController', ['User', '$scope', '$http', '$window'
       var temp = $scope.cart[t].categoryPath.split('/');
       for(var x in categories) {
         if(temp[0] === categories[x]) {
+          last_min.push(x);
           var xpos = position[places[x]][0];
           var ypos = position[places[x]][1];
           ascii_map[ypos][xpos] = '.';

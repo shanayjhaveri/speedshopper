@@ -114,7 +114,7 @@ var init_canvas = function() {
   brush = canvas.getContext("2d");
   brush.fillStyle="#78b9e7";
   brush.fillRect(2200, 1200, 300 - 10, 200);
-/*
+
   for(var f in last_min) {
     brush = canvas.getContext("2d");
     brush.fillStyle="black";
@@ -122,7 +122,7 @@ var init_canvas = function() {
     console.log(mark[last_min[f]][0], mark[last_min[f]][1])
     brush.fillRect(mark[last_min[f]][0], mark[last_min[f]][1], 50, 50);
   }
-  */
+
 
 /*
   for(var a in ascii_map) {
