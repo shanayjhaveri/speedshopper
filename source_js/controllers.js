@@ -1,8 +1,11 @@
+//sessionStorage.setItem('login', '6');
+
 var ourControllers = angular.module('ourControllers', []);
 
 /* TASKS */
 
 ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
+    $window.sessionStorage.login=0;
     $("#scroll").on('click',function(){
         event.preventDefault();
         $('html, body').animate({
@@ -15,10 +18,16 @@ ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$
             scrollTop: $( '#intro' ).offset().top
         }, 500);
     });
+
 }]);
 
 ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$window', '$location', function(Walmart, $scope, $http, $window, $location) {
-
+    $scope.loggedin = false;
+    $scope.user;
+    if($window.sessionStorage.login==1){
+        $scope.loggedin = true;
+        $scope.user=$window.sessionStorage.username;
+    }
   $scope.search = function() {
     if($scope.text === '' || $scope.text === undefined) return;
     document.getElementById("searchwalmart").className = "button request disabled";
@@ -88,22 +97,66 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
 }]);
 
 ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
+
     $scope.returnPassword="";
-    $scope.returnEmail="";
+    $scope.returnName="";
     $scope.newPassword="";
     $scope.newEmail="";
     $scope.newName="";
-    $scope.logon = function(){
-        console.log($scope.returnEmail,$scope.returnPassword);
-    };
     $scope.createNew = function(){
-        console.log($scope.newName,$scope.newEmail, $scope.newPassword);
+        window.location = "#/main";
+        return;
+        if($scope.newEmail==""|| $scope.newEmail==undefined||$scope.newName==""|| $scope.newName==undefined||
+            $scope.newPassword==""|| $scope.newPassword==undefined) {
+            console.log("empty");
+            return;
+        }
+        var new_user={};
+        new_user.name = $scope.newName;
+        new_user.email=$scope.newEmail;
+        new_user.password=$scope.newPassword;
+        User.addUser(new_user).success( function(data) {
+            console.log(data);
+        }).error( function(data) {
+            console.log("search request failed");
+        });
+
+    };
+    
+    $scope.logon = function(){
+
+
+        if($scope.returnName==""|| $scope.returnName==undefined||$scope.returnPassword==""|| $scope.returnPassword==undefined) {
+            console.log("empty");
+            return;
+        }
+        $window.sessionStorage.username=$scope.returnName;
+        $window.sessionStorage.login=1;
+        $window.location = "#/main";
+        return;
+        var return_user={};
+        return_user.email = $scope.returnName;
+        return_user.password = $scope.returnPassword;
+        User.getUser(return_user).success( function(data) {
+            console.log(data);
+        }).error( function(data) {
+            console.log("search request failed");
+        });
+
     };
 }]);
 
 ourControllers.controller('MapController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
 
-
+    $scope.loggedin = false;
+    $scope.user;
+    if($window.sessionStorage.login==1){
+        $scope.loggedin = true;
+        $scope.user=$window.sessionStorage.username;
+    }
+    if($window.sessionStorage.login==1){
+        $scope.show = false;
+    }
   $scope.draw = function() {
     init_canvas();
   };

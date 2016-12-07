@@ -1,5 +1,23 @@
-<div class="row" ng-controller='MainController'>
+<div  ng-controller='MainController'>
+	<header>
+		<div class="top-bar-left">
+			<p>SpeedShopping</p>
+			<!--<a href="#/landing">SpeedShopping</a>-->
+		</div>
+		<div  ng-if="!loggedin" class="top-bar-right">
+			<a href="#/logon">Log on/Register
+			</a>
+		</div>
+		<div  ng-if="loggedin" class="top-bar-right">
+			<div ><i class="fa fa-user" aria-hidden="true">{{user}}</i>
+				<span><a href="#/landing">Sign Out
+            </a></span>
+			</div>
 
+		</div>
+	</header>
+
+<div class="row">
 	<div id="filter" class="small-12 medium-3 columns">
 		<h4>Filters</h4>
 		<ul>
@@ -13,6 +31,7 @@
 			<li><input type="checkbox"> Following</li>
 			<li><input type="checkbox"> Saved</li>
 		</ul>
+
 	</div>
 
 	<div id="feed" class="small-12 medium-6 columns">
@@ -21,8 +40,35 @@
 		<button id="searchwalmart" class="button request" ng-click="search()" ng-enter="search()"><i class="fa fa-search" aria-hidden="true" style="font-size: 30px;"></i></button>
 		<br><br>
 
+
 		<div id="scroll">
 
+<<<<<<< HEAD
+=======
+			<!--<div class="list">
+				<div class="name">
+					{{thing.name}}
+				</div>
+
+				<div class="items">
+					<ul>
+
+						<li>Milk</li>
+						<li>Eggs</li>
+						<li>Butter</li>
+						<li>Sugar</li>
+						<li>Cocoa</li>
+						<li>Flour</li>
+						<li>Icing</li>
+						<li>Forks</li>
+					</ul>
+				</div>
+				<div class="add"><i class="fa fa-plus" aria-hidden="true"></i></div>
+				<div class="more"><i class="fa fa-bars" aria-hidden="true"></i></div>
+				<div class="price">$20</div>
+			</div>-->
+
+>>>>>>> 620c17cfefb0cc8993e38f66a715a5d74d2feb24
 			<div class="item" ng-repeat="thing in ui_data.items">
 				<div style="height: 100%, width: 100%, background-image: url('{{thing.largeImage}}');">
 					<div class="name">
@@ -43,7 +89,12 @@
 		<ul>
 			<li ng-repeat="thing in cart">{{thing.name}} x {{thing.quantity}}<a><i class='fa fa-times-circle' aria-hidden='true' ng-click="remove_from_cart($index)"></i></li></a></li>
 		</ul>
+<<<<<<< HEAD
 		<button id="mapbutton" class="button checkout" ng-click="go_to_map()"><i class="fa fa-map-o" aria-hidden="true" style="font-size: 30px;"></i></button>
 	</div>
+=======
+>>>>>>> 620c17cfefb0cc8993e38f66a715a5d74d2feb24
 
+	</div>
+</div>
 </div>
