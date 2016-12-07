@@ -33,6 +33,9 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
     document.getElementById("searchwalmart").className = "button request disabled";
     Walmart.searchItem($scope.text).success( function(data) {
       $scope.ui_data = data;
+      for(var t in $scope.ui_data.items) {
+        if($scope.ui_data.items[t].name.length > 16) $scope.ui_data.items[t].name = $scope.ui_data.items[t].name.substring(0,18);
+      }
       $scope.$apply();
       document.getElementById("searchwalmart").className = "button request";
       console.log(data);
@@ -58,6 +61,7 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
     }
     if(unique) {
       thing.quantity = 1;
+      if(thing.name.length > 16) thing.name = thing.name.substring(0,32) + '...';
       $scope.cart.push(thing);
     }
     $scope.update_total();
@@ -69,6 +73,7 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
   $scope.remove_from_cart = function(idx) {
     if($scope.cart[idx].quantity === 1) $scope.cart.splice(idx, 1);
     else $scope.cart[idx].quantity--;
+    $window.sessionStorage.cart = JSON.stringify($scope.cart);
     $scope.update_total();
   }
 
@@ -84,7 +89,6 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
 
   $scope.go_to_map = function() {
     if($scope.cart.length === 0 ) return;
-    console.log($scope.cart);
     $location.path("map");
   };
 
@@ -141,6 +145,7 @@ ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$lo
         return_user.email = $scope.returnName;
         return_user.password = $scope.returnPassword;
         User.getUser(return_user).success( function(data) {
+          $window.sessionStorage.fulluser = JSON.stringify(data);
             console.log(data);
         }).error( function(data) {
             console.log("search request failed");
@@ -149,7 +154,7 @@ ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$lo
     };
 }]);
 
-ourControllers.controller('MapController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
+ourControllers.controller('MapController', ['User', '$scope', '$http', '$window', '$location', function(User, $scope, $http, $window, $location) {
 
   $scope.loggedin = false;
   $scope.user;
@@ -161,9 +166,29 @@ ourControllers.controller('MapController', ['$scope', '$http', '$window', '$loca
       $scope.show = false;
   }
 
+  $scope.update_total = function() {
+    $scope.total = 0;
+    for(var t in $scope.cart) $scope.total += $scope.cart[t].salePrice * $scope.cart[t].quantity;
+    $scope.total *= 100;
+    $scope.total = Math.round($scope.total);
+    $scope.total /= 100;
+    if($scope.cart.length === 0) document.getElementById('savelist').className = "button save disabled";
+    else document.getElementById('savelist').className = "button save";
+  };
+
   $scope.init = function() {
     $scope.cart = JSON.parse($window.sessionStorage.cart);
-    console.log($scope.cart);
+  };
+
+  $scope.remove_from_cart = function(idx) {
+    if($scope.cart[idx].quantity === 1) $scope.cart.splice(idx, 1);
+    else $scope.cart[idx].quantity--;
+    $window.sessionStorage.cart = JSON.stringify($scope.cart);
+    $scope.update_total();
+  };
+
+  $scope.back = function() {
+    $location.path("main");
   };
 
   $scope.draw = function() {
@@ -171,6 +196,131 @@ ourControllers.controller('MapController', ['$scope', '$http', '$window', '$loca
   };
 
   $scope.init();
+  $scope.update_total();
   $scope.draw();
+
+  $scope.save_list = function() {
+    var the_user = JSON.parse($window.sessionStorage.fulluser);
+    var the_cart = {};
+    the_cart.listName = [];
+    the_cart.itemIDs = [];
+    the_cart.prices = [];
+    the_cart.imgs = [];
+    the_cart.itemNames = [];
+    the_cart.quantities = [];
+
+    for(var t in $scope.cart) {
+      the_cart.listName.push($scope.cart[t].name);
+      the_cart.itemIds.push($scope.cart[t].itemId);
+      the_cart.prices.push($scope.cart[t].salePrice);
+      the_cart.imgs.push($scope.cart[t].thumbnailImage);
+      the_cart.quantities.push($scope.cart[t].quantity);
+    }
+
+    var pass = {user: the_user, list: the_list};
+
+    User.saveItems(pass).success( function(data) {
+      console.log(data);
+    });
+
+    the_user.lists.push(the_list);
+    console.log(the_user);
+    $window.sessionStorage.fulluser = JSON.stringify(the_user);
+
+  };
+
+  $scope.draw_path = function() {
+    // init dots on map
+    ascii_map[13][6] = 'S';
+    for(var t in $scope.cart) {
+      var temp = $scope.cart[t].categoryPath.split('/');
+      for(var x in categories) {
+        if(temp[0] === categories[x]) {
+          var xpos = position[places[x]][0];
+          var ypos = position[places[x]][1];
+          ascii_map[ypos][xpos] = '.';
+          break;
+        }
+      }
+      ascii_map[13][15] = 'E';
+    }
+
+    var starty = 13;
+    var startx = 6;
+    var q = [];
+
+    var start = [startx, starty];
+    //have remaining dots array and once no more remaining dots, go to checkout from last dot
+    //maybe keep a path array to track locations of current path and then reset after reaching a destination
+
+    var num_dots = 0;
+
+    var temp_map = [];
+
+    for(var a in ascii_map) {
+      temp_map[a] = [];
+      for(var b in ascii_map[a]) {
+        if(ascii_map[a][b] === '.') num_dots++;
+        temp_map[a][b] = ascii_map[a][b];
+      }
+    }
+
+    var dfs = function() {
+      var stop = q.pop();
+      console.log(stop);
+      var char = temp_map2[stop[1]][stop[0]];
+      console.log(char);
+
+
+      if(char === '.') {
+        return 1;
+      } else if(char === 'E' || char === '#') {
+        return 0;
+      } else if(char === ' ' || char === 'S') {
+        console.log('here');
+        temp_map2[stop[1]][stop[0]] = '.';
+        q.push([stop[0], stop[1] + 1]);
+        if(dfs()) return 1;
+        q.push([stop[0], stop[1] - 1]);
+        if(dfs()) return 1;
+        q.push([stop[0] + 1, stop[1]]);
+        if(dfs()) return 1;
+        q.push([stop[0] - 1, stop[1]]);
+        if(dfs()) return 1;
+        temp_map2[stop[1]][stop[0]] = 'x';
+        return;
+      }
+
+    }
+
+    //console.log(num_dots);
+
+    while(num_dots > 0) {
+
+      var temp_map2 = [];
+
+      for(var a in ascii_map) {
+        temp_map2[a] = [];
+        for(var b in ascii_map[a]) {
+          temp_map2[a][b] = ascii_map[a][b];
+        }
+      }
+
+      q.push(start);
+      var path = [];
+      dfs();
+
+      num_dots--;
+
+    }
+
+    console.log("DONE");
+
+
+
+
+  };
+
+  $scope.draw_path();
 
 }]);

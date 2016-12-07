@@ -22,13 +22,17 @@
     <canvas id="map" height="1400" width="2800"></canvas>
   </div>
 
-  <div class="small-12 large-3 columns">
+  <div id="finalcart" class="small-12 large-3 columns">
 
     <div id="final" class="mappage">
+			<h2 style="color: #99B898; text-align: center;">${{total}}</h2>
 			<ul>
-				<li ng-repeat="thing in cart">{{thing.name}} x {{thing.quantity}}<a><i class='fa fa-times-circle' aria-hidden='true' ng-click="remove_from_cart($index)"></i></li></a></li>
+				<li ng-repeat="thing in cart">{{thing.name}} x {{thing.quantity}} <a><i class='fa fa-times-circle' aria-hidden='true' ng-click="remove_from_cart($index)"></i></li></a></li>
 			</ul>
-			<button id="savelist" class="button save" ng-click="save_list()">save</button>
+			<br>
+			<button class="button save" ng-click="back()"><i class="fa fa-reply" aria-hidden="true"></i></button>
+			<br>
+			<button id="savelist" class="button save" ng-click="save_list()"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 
     </div>
 

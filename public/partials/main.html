@@ -62,8 +62,9 @@
 	<div id="cart" class="small-12 medium-3 columns">
 		<h2 style="color: #99B898; text-align: center;">${{total}}</h2>
 		<ul>
-			<li ng-repeat="thing in cart">{{thing.name}} x {{thing.quantity}}<a><i class='fa fa-times-circle' aria-hidden='true' ng-click="remove_from_cart($index)"></i></li></a></li>
+			<li ng-repeat="thing in cart">{{thing.name}} x {{thing.quantity}} <a><i class='fa fa-times-circle' aria-hidden='true' ng-click="remove_from_cart($index)"></i></li></a></li>
 		</ul>
+		<br>
 		<button id="mapbutton" class="button checkout" ng-click="go_to_map()"><i class="fa fa-map-o" aria-hidden="true" style="font-size: 30px;"></i></button>
 	</div>
 
