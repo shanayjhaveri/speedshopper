@@ -105,6 +105,7 @@ ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$lo
     $scope.newName="";
     $scope.createNew = function(){
         window.location = "#/main";
+        console.log($scope.newEmail);
         return;
         if($scope.newEmail==""|| $scope.newEmail==undefined||$scope.newName==""|| $scope.newName==undefined||
             $scope.newPassword==""|| $scope.newPassword==undefined) {
