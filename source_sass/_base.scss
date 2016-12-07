@@ -8,9 +8,7 @@ $size-mid:60px;
   text-align: center;
   background-image: url("../media/the road.JPG");
   background-size: cover;
-  @include breakpoint(medium down){
-    height:600px;
-  }
+
   @include breakpoint(small down){
     height: 400px;
   }
@@ -48,7 +46,7 @@ $size-mid:60px;
     }
     @include breakpoint(small down){
       font-size: 60px;
-      transform: translateY(-20%);
+      transform: translateY(120%);
 
     }
 
@@ -74,12 +72,12 @@ $size-mid:60px;
     }
     @include breakpoint(medium down) {
       font-size: 45px;
-      transform: translateY(220%);
+      transform: translateY(380%);
       top: 0;
     }
     @include breakpoint(small down) {
       font-size: 25px;
-      transform: translateY(-20%);
+      transform: translateY(300%);
       top: 0;
     }
   }
@@ -126,6 +124,16 @@ $size-mid:60px;
     height:500px;
     padding: 55px;
     position:relative;
+    @include breakpoint(medium down){
+      height: 400px;
+      padding:17px;
+
+    }
+    @include breakpoint(small down){
+      padding:10px;
+      padding-top:20px;
+      padding-bottom:20px;
+    }
     .content{
       margin: 0 auto;
       text-align: center;
@@ -154,19 +162,41 @@ $size-mid:60px;
 }
 .logon{
   padding:100px;
+  @include breakpoint(medium down){
+    padding:70px;
+
+  }
+  @include breakpoint(small down){
+    padding:30px;
+
+  }
   .medium-6{
     padding: 30px;
   }
   .new_user{
     border-left:  solid $offblack;
     padding-left:50px;
+    @include breakpoint(medium down){
+      padding-left: 0.9375rem;
+      border-left:  none;
+    }
   }
   .button{
     background-color: $red;
     box-shadow: 0 0 7px 0 rgba(0, 0, 0, .13);
-    border-radius: 200px;
+    border-radius: 4px;
+    margin-right:70px;
     float:right;
+    @include breakpoint(medium down){
+      margin-right:90px;
+
+    }
+    @include breakpoint(small down){
+      margin-right:0;
+
+    }
   }
+
 }
 body {
   padding-top: $header-height;
@@ -182,6 +212,34 @@ header {
   /* position */
   margin-top: -$header-height;
   position: fixed;
+
+  /* style */
+  background-color: $red;
+  color: $offwhite;
+  z-index: 127;
+
+  a{
+    color:white;
+  }
+  a:active {
+    color:white;
+  }
+  a:hover {
+    color:$lightorange;
+  }
+  a:link {
+    color:white;
+  }
+
+}
+footer {
+
+  /* size */
+  height: $header-height;
+  width: 100%;
+
+  /* position */
+  margin-bottom: 0;
 
   /* style */
   background-color: $red;
