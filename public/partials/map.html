@@ -1,6 +1,22 @@
-<div class="row" ng-controller='MapController'>
+<div [ ng-controller='MapController'>
+    <header>
+        <div class="top-bar-left">
+            <p>SpeedShopping</p>
+            <!--<a href="#/landing">SpeedShopping</a>-->
+        </div>
+        <div  ng-if="!loggedin" class="top-bar-right">
+            <a href="#/logon">Log on/Register
+            </a>
+        </div>
+        <div  ng-if="loggedin" class="top-bar-right">
+            <div ><i class="fa fa-user" aria-hidden="true">{{user}}</i>
+                <span><a href="#/landing">Sign Out
+            </a></span>
+            </div>
 
-
+        </div>
+    </header>
+    <div class="row">
 	<div class="small-12 large-9 columns">
 		<br>
     <canvas id="map" height="1400" width="2800"></canvas>		
@@ -13,6 +29,7 @@
     </div>
 
   </div>
+    </div>
 
 
 </div>

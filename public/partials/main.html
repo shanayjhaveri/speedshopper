@@ -1,6 +1,23 @@
-<div class="row" ng-controller='MainController'>
+<div  ng-controller='MainController'>
+	<header>
+		<div class="top-bar-left">
+			<p>SpeedShopping</p>
+			<!--<a href="#/landing">SpeedShopping</a>-->
+		</div>
+		<div  ng-if="!loggedin" class="top-bar-right">
+			<a href="#/logon">Log on/Register
+			</a>
+		</div>
+		<div  ng-if="loggedin" class="top-bar-right">
+			<div ><i class="fa fa-user" aria-hidden="true">{{user}}</i>
+				<span><a href="#/landing">Sign Out
+            </a></span>
+			</div>
 
+		</div>
+	</header>
 
+<div class="row">
 	<div id="filter" class="small-12 medium-3 columns">
 		<h4>Filters</h4>
 		<ul>
@@ -14,6 +31,7 @@
 			<li><input type="checkbox"> Following</li>
 			<li><input type="checkbox"> Saved</li>
 		</ul>
+
 	</div>
 
 	<div id="feed" class="small-12 medium-6 columns">
@@ -21,6 +39,7 @@
 		<input id="search" ng-model="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="64"></input>
 		<button class="request disabled" ng-click="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
 		<br><br>
+
 
 		<div id="scroll">
 
@@ -76,9 +95,7 @@
 		<h4 style="color: #99B898">${{total}}</h4>
 		<ul id="cartlist">
 		</ul>
-		<div ng-if="user">
-			<h3>haha{{user}}</h3>
-		</div>
-	</div>
 
+	</div>
+</div>
 </div>

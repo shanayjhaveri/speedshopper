@@ -205,7 +205,10 @@ body {
 }
 
 header {
-
+  p{
+    font-size:58px;
+    line-height: 1.3;
+  }
   /* size */
   height: $header-height;
   width: 100%;
@@ -240,7 +243,9 @@ footer {
   width: 100%;
 
   /* position */
-  margin-bottom: 0;
+  bottom: 0;
+  position:absolute;
+
 
   /* style */
   background-color: $red;

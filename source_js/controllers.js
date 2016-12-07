@@ -22,7 +22,12 @@ ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$
 }]);
 
 ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$window', '$location', function(Walmart, $scope, $http, $window, $location) {
-
+    $scope.loggedin = false;
+    $scope.user;
+    if($window.sessionStorage.login==1){
+        $scope.loggedin = true;
+        $scope.user=$window.sessionStorage.username;
+    }
   $scope.search = function() {
     Walmart.searchItem($scope.text).success( function(data) {
       $scope.ui_data = data;
@@ -60,6 +65,7 @@ ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$win
 }]);
 
 ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
+
     $scope.returnPassword="";
     $scope.returnName="";
     $scope.newPassword="";
@@ -92,6 +98,7 @@ ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$lo
             console.log("empty");
             return;
         }
+        $window.sessionStorage.username=$scope.returnName;
         $window.sessionStorage.login=1;
         $window.location = "#/main";
         return;
@@ -109,7 +116,15 @@ ourControllers.controller('LogOnController', ['$scope', '$http', '$window', '$lo
 
 ourControllers.controller('MapController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
 
-
+    $scope.loggedin = false;
+    $scope.user;
+    if($window.sessionStorage.login==1){
+        $scope.loggedin = true;
+        $scope.user=$window.sessionStorage.username;
+    }
+    if($window.sessionStorage.login==1){
+        $scope.show = false;
+    }
   $scope.draw = function() {
     init_canvas();
   };
