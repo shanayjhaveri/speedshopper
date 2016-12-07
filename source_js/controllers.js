@@ -20,11 +20,11 @@ ourControllers.controller('LandingController', ['$scope', '$http', '$window', '$
 ourControllers.controller('MainController', ['Walmart', '$scope', '$http', '$window', '$location', function(Walmart, $scope, $http, $window, $location) {
 
   $scope.search = function(str) {
-    console.log('searc');
+    console.log('searching...');
     Walmart.searchItem($scope.text).success( function(data) {
       console.log(data);
     }).error( function(data) {
-      console.log("search request failed");
+      console.log(data);
     });
   }
 
