@@ -139,9 +139,7 @@ $size-mid:60px;
       text-align: center;
       width: auto;
       height: auto;
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
+
 
     }
 
@@ -324,7 +322,6 @@ footer {
     color: white;
     margin-top: 4px;
     float: left;
-    line-height: 40px;
     border-radius: 2px;
     margin-left: 10px;
     width: 110px;
